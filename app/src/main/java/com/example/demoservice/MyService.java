@@ -102,6 +102,11 @@ public class MyService extends Service {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                }
+                indexSong = randomSong();
+                mediaPlayer = MediaPlayer.create(MyService.this, listSong.get(indexSong).file);
                 statePlay=false;
                 Intent service = new Intent(MyService.this, MyService.class);
                 service.setAction(Constants.ACTION.PLAY_ACTION);
@@ -113,12 +118,10 @@ public class MyService extends Service {
         return START_STICKY;
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
-
     private void showNotification(String songName, String title) {
         Intent notificationIntent = new Intent(this, MainActivity.class);
         notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
