@@ -77,7 +77,8 @@ public class MyService extends Service {
                 mediaPlayer.release();
                 indexSong = randomSong();
                 mediaPlayer = MediaPlayer.create(this, listSong.get(indexSong).file);
-                showNotification(listSong.get(indexSong).name, "Play");
+                showNotification(listSong.get(indexSong).name, "Pause");
+                statePlay = true;
                 mediaPlayer.start();
 
                 break;
@@ -86,7 +87,8 @@ public class MyService extends Service {
                 mediaPlayer.release();
                 indexSong = randomSong();
                 mediaPlayer = MediaPlayer.create(this, listSong.get(indexSong).file);
-                showNotification(listSong.get(indexSong).name, "Play");
+                showNotification(listSong.get(indexSong).name, "Pause");
+                statePlay = true;
                 mediaPlayer.start();
                 break;
             case Constants.ACTION.STOPFOREGROUND_ACTION:
@@ -116,9 +118,6 @@ public class MyService extends Service {
     public void onDestroy() {
         super.onDestroy();
     }
-
-
-
 
     private void showNotification(String songName, String title) {
         Intent notificationIntent = new Intent(this, MainActivity.class);
